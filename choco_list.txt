@@ -1,10 +1,11 @@
-PS C:\Users\richa\AppData\Roaming\vlc> choco list
+PS C:\Users\richa> choco list
 Chocolatey v2.5.1
 7zip 25.1.0
 7zip.install 25.1.0
 adobereader 2025.1.20844
 autohotkey 2.0.19
 autohotkey.install 2.0.19
+blender 5.0.0
 bluestacks 5.22.130.1019
 chocolatey 2.5.1
 chocolatey-compatibility.extension 1.0.0
@@ -17,10 +18,12 @@ discord.install 1.0.9215
 docker-desktop 4.52.0
 dotnetfx 4.8.0.20220524
 fluidsynth 2.4.7
+freecad 1.0.2.1
 gh 2.83.1
 git 2.52.0
 git.install 2.52.0
 github-desktop 3.5.4
+grep 3.11.0
 InkScape 1.4.2
 jujutsu.portable 0.35.0
 KB2919355 1.0.20160915
@@ -31,6 +34,9 @@ KB3035131 1.0.3
 keeper 17.4.1
 librehardwaremonitor 0.9.4
 localxpose 24.9.2
+miniconda3 4.12.0
+mpv 2024.9.26
+mpvio.install 0.40.0
 nano 7.2.36.20230412
 nano-win 7.2.36.20230412
 nmap 7.98.0
@@ -56,6 +62,7 @@ tortoisesvn 1.14.9.29743
 ultravnc 1.6400.0
 unzip 6.0.0.20250209
 vcredist140 14.44.35211
+vcredist2008 9.0.30729.616104
 vcredist2015 14.0.24215.20170201
 virtualbox 7.2.4
 visualstudio2022enterprise 117.14.19
@@ -65,5 +72,5 @@ vlc.install 3.0.21
 vswhere 3.1.7
 WinDirStat 2.2.2
 winfsp 1.4.19049
-65 packages installed.
-PS C:\Users\richa\AppData\Roaming\vlc>
+72 packages installed.
+PS C:\Users\richa>
