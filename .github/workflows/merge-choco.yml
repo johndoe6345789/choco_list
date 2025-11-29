@@ -1,0 +1,42 @@
+name: Merge Chocolatey Lists
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - choco_list.txt
+      - setup.ps1
+      - merge_choco_lists.py
+
+jobs:
+  merge-choco:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run merge script
+        id: merge
+        run: |
+          echo "::group::Merged Choco Command Output"
+          python merge_choco_lists.py --list choco_list.txt --ps1 setup.ps1 > merged_output.txt
+          cat merged_output.txt
+          echo "::endgroup::"
+
+          # Export the line to GitHub Action outputs
+          # Strip ANSI and newlines, only keep the final line
+          lastline=$(tail -n 1 merged_output.txt)
+          echo "command=$lastline" >> $GITHUB_OUTPUT
+
+      - name: Add to summary
+        run: |
+          echo "## Final merged choco command" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`powershell" >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.merge.outputs.command }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
