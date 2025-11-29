@@ -1,0 +1,26 @@
+name: Chocolatey command from choco_list
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - choco_list.txt
+      - .github/scripts/gen_choco_cmd.py
+      - .github/workflows/choco-command.yml
+
+jobs:
+  generate-choco-command:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate choco install one-liner
+        run: |
+          python .github/scripts/gen_choco_cmd.py --input choco_list.txt
