@@ -1,0 +1,48 @@
+name: Convert choco install line to list
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - install.txt
+      - choco_list.txt
+      - convert_install_to_list.py
+      - .github/workflows/convert-install-to-list.yml
+
+jobs:
+  convert-choco-install:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate choco list style output
+        id: generate
+        run: |
+          echo "::group::Generated choco list from install.txt"
+          python convert_install_to_list.py \
+            --install-file install.txt \
+            --list-file choco_list.txt \
+            --output merged_choco_list.txt
+          cat merged_choco_list.txt
+          echo "::endgroup::"
+
+      - name: Add to job summary
+        run: |
+          echo "## Generated Chocolatey list" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`text" >> $GITHUB_STEP_SUMMARY
+          cat merged_choco_list.txt >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload merged list as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged_choco_list
+          path: merged_choco_list.txt
