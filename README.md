@@ -2,8 +2,5 @@
 Choco List
 
 
-Todo:
+## Go to Actions tab for full command output
 
-1. Try adding anaconda to list on next windows install.
-2. Python script to parse list and auto install - maybe dont need #1 ?
-3.  
