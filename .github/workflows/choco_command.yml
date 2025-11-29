@@ -24,3 +24,4 @@ jobs:
       - name: Generate choco install one-liner
         run: |
           python .github/scripts/gen_choco_cmd.py --input choco_list.txt
+
