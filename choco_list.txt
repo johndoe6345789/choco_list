@@ -2,9 +2,6 @@ PS C:\Users\richa> choco list
 Chocolatey v2.5.1
 7zip 25.1.0
 7zip.install 25.1.0
-adobe-creative-cloud 0.0.0
-adobe-lightroom 0.0.0
-adobe-photoshop 0.0.0
 adobedigitaleditions 0.0.0
 adobereader 2025.1.20844
 anydesk 0.0.0
