@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Parse a `choco list` output file and emit a one-line
-`choco install -y ...` command, formatted nicely for
-GitHub Actions logs and job summary.
+Parse a `choco list` output file and emit a PowerShell script
+that installs all packages via a $packages array and a foreach loop,
+formatted nicely for GitHub Actions logs and job summary.
 """
 
 import argparse
@@ -10,6 +10,7 @@ import os
 import re
 import sys
 from pathlib import Path
+from typing import List
 
 
 def parse_args() -> argparse.Namespace:
@@ -22,7 +23,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def extract_packages(text: str) -> list[str]:
+def extract_packages(text: str) -> List[str]:
     """
     Extract package names of the form:
 
@@ -50,27 +51,44 @@ def extract_packages(text: str) -> list[str]:
     return sorted(packages, key=str.lower)
 
 
-def build_command(packages: list[str]) -> str:
-    if not packages:
-        return "REM No packages found in choco_list.txt"
-    return "choco install -y " + " ".join(packages)
-
-
-def print_for_logs(command: str) -> None:
+def build_powershell_script(packages: List[str]) -> str:
     """
-    Make the command very obvious in GitHub Actions logs
+    Build a PowerShell script that defines a $packages array
+    and installs each package in a foreach loop.
+    """
+    if not packages:
+        return "# No packages found in choco_list.txt"
+
+    lines: List[str] = []
+
+    lines.append("$packages = @(")
+    for pkg in packages:
+        lines.append(f"  '{pkg}'")
+    lines.append(")")
+    lines.append("")
+    lines.append("foreach ($pkg in $packages) {")
+    lines.append('    Write-Host "Installing $pkg..." -ForegroundColor Cyan')
+    lines.append("    choco install $pkg -y")
+    lines.append("}")
+
+    return "\n".join(lines)
+
+
+def print_for_logs(script: str) -> None:
+    """
+    Make the script very obvious in GitHub Actions logs
     using a group and loud markers.
     """
-    print("::group::Chocolatey reinstall command")
-    print("=== BEGIN CHOCO INSTALL ONE-LINER ===")
-    print(command)
-    print("=== END CHOCO INSTALL ONE-LINER ===")
+    print("::group::Chocolatey reinstall script")
+    print("=== BEGIN CHOCO INSTALL POWERSHELL SCRIPT ===")
+    print(script)
+    print("=== END CHOCO INSTALL POWERSHELL SCRIPT ===")
     print("::endgroup::")
 
 
-def write_step_summary(command: str) -> None:
+def write_step_summary(script: str) -> None:
     """
-    Also write the command into the GitHub Actions step summary
+    Also write the script into the GitHub Actions step summary
     if available, so it shows up on the run page.
     """
     summary_path = os.getenv("GITHUB_STEP_SUMMARY")
@@ -79,9 +97,9 @@ def write_step_summary(command: str) -> None:
 
     try:
         with open(summary_path, "a", encoding="utf-8") as fh:
-            fh.write("## Chocolatey reinstall command\n\n")
+            fh.write("## Chocolatey reinstall PowerShell script\n\n")
             fh.write("```powershell\n")
-            fh.write(command + "\n")
+            fh.write(script + "\n")
             fh.write("```\n")
     except OSError as exc:
         print(f"::warning::Failed to write step summary: {exc}", file=sys.stderr)
@@ -97,10 +115,10 @@ def main() -> None:
 
     text = path.read_text(encoding="utf-8")
     packages = extract_packages(text)
-    command = build_command(packages)
+    script = build_powershell_script(packages)
 
-    print_for_logs(command)
-    write_step_summary(command)
+    print_for_logs(script)
+    write_step_summary(script)
 
 
 if __name__ == "__main__":
