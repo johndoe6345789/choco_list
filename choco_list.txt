@@ -105,7 +105,6 @@ pdftk 0.0.0
 postman 11.46.6
 powershell-core 0.0.0
 powertoys 0.0.0
-protonvpn 0.0.0
 prusaslicer 2.9.4
 PS C:\Users\richa>
 putty 0.0.0
