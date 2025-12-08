@@ -2,7 +2,6 @@ PS C:\Users\richa> choco list
 Chocolatey v2.5.1
 7zip 25.1.0
 7zip.install 25.1.0
-adobedigitaleditions 4.5.12
 adobereader 2025.1.20844
 anydesk 9.6.4
 anydesk.portable 9.6.5
