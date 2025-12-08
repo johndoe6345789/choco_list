@@ -3,8 +3,6 @@ Chocolatey v2.5.1
 7zip 25.1.0
 7zip.install 25.1.0
 adobereader 2025.1.20844
-anydesk 9.6.4
-anydesk.portable 9.6.5
 autohotkey 2.0.19
 autohotkey.install 2.0.19
 azure-cli 2.80.0
