@@ -5,7 +5,6 @@ Chocolatey v2.5.1
 adobereader 2025.1.20844
 anydesk 9.6.4
 anydesk.portable 9.6.5
-autodesk-fusion360 2605.1.39
 autohotkey 2.0.19
 autohotkey.install 2.0.19
 azure-cli 2.80.0
@@ -53,7 +52,6 @@ Firefox 145.0.2
 fluidsynth 2.4.7
 foxitreader 2025.2.1.33197
 freecad 1.0.2.1
-freshbing 1.0.0
 gh 2.83.1
 git 2.52.0
 git.install 2.52.0
