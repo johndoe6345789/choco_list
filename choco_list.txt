@@ -112,8 +112,6 @@ opera-gx 123.0.5669.57
 passwordsafe 3.70.1
 pdftk 2.2.0
 postman 11.46.6
-PowerShell 5.1.14409.20180811
-powershell-core 7.5.4
 powertoys 0.96.1
 prusaslicer 2.9.4
 putty 0.83.0
