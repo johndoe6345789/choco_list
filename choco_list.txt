@@ -117,7 +117,7 @@ prusaslicer 2.9.4
 putty 0.83.0
 putty.install 0.83.0
 putty.portable 0.83.0
-python314 3.14.0
+python312 3.12.0
 qbittorrent 5.1.3
 rawtherapee 5.8.0
 rclone-ui 2.7.3
